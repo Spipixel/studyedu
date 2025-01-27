@@ -314,7 +314,7 @@
         function openPDF(event) {
             const subjectId = event.target.id;
             if (pdfFiles[subjectId]) {
-                const pdfPath = `{pdfFiles[subjectId]}`;
+                const pdfPath = pdfFiles[subjectId];
                 window.open(pdfPath, '_blank');
             } else {
                 alert("PDF not found for this subject.");
