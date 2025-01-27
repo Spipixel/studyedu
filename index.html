@@ -46,7 +46,7 @@
         </div>
         <div>
             <div class="alert alert-dark" role="alert">
-                Join our other social media platforms <a href="https://www.instagram.com/spipixel12/">Instagram</a> and our youtube channel <a href="https://www.youtube.com/@spipixel">Spipixel</a></a>
+                Join our other social media platforms <a href="https://www.instagram.com/spipixel12/">Instagram</a> and our youtube channel <a href="https://www.youtube.com/@spipixel">Spipixel or don't forgot to visit <a href="https://github.com/Spipixel">Spipixel</a> Github repository.</a></a>
               </div>
         </div>
         <div class="row">
@@ -298,23 +298,23 @@
     <script>
         // Object mapping subject IDs to their respective PDF filenames
         const pdfFiles = {
-            maths: "11_math_eng_sm_2024.pdf",
-            physics: "11_physics_eng_sm_2024.pdf",
-            chemistry: "11_chemistry_eng_sm_2024.pdf",
-            biology: "11_biology_eng_sm_2024.pdf",
-            IP: "11_computerscience_eng_sm_2024.pdf",
-            PE: "11_phyedn_eng_sm_2024.pdf",
-            accountancy: "11_accountancy_eng_sm_2024.pdf",
-            businessstudy: "11_businessstudy_eng_sm_2024.pdf",
-            economics: "11_economics_eng_sm_2024.pdf",
-            hindi: "11_hindi_hindi_eng_sm_2024.pdf"
+            maths: "https://drive.google.com/file/d/1NEzMzvIBOAY6LCWHsMK5LtqasISRmtA4/view?usp=drive_link",
+            physics: "https://drive.google.com/file/d/18qCZl7gQFIWkRf6RLYJueIq7MbbVeVmc/view?usp=drive_link",
+            chemistry: "https://drive.google.com/file/d/1wEECMar640dqZ-kl1x0Uvdeevk10X7Qh/view?usp=drive_link",
+            biology: "https://drive.google.com/file/d/1myzeKxjd0ja6BDK2ukAaruq3IpVgvNh6/view?usp=drive_link",
+            IP: "https://drive.google.com/file/d/130yXhlLmP17Qe39RkMY3nbYKzld12kb5/view?usp=sharing",
+            PE: "https://drive.google.com/file/d/11u1-hpqiDw4BRZh2zXu2JDtRf_l9Rc2b/view?usp=drive_link",
+            accountancy: "https://drive.google.com/file/d/1tvtC9lRa2hycIkeknwlUCx2rDIt0hxj9/view?usp=drive_link",
+            businessstudy: "https://drive.google.com/file/d/1Nu0Q-SHl8OHdzCOMA0mX7pKHjOKwGD1D/view?usp=drive_link",
+            economics: "https://drive.google.com/file/d/1jgFILurSvW9v1S2h9yB_J3CtfDq810Kt/view?usp=drive_link",
+            hindi: "https://drive.google.com/file/d/1kxaB29IVsTOEBIfKspJe0M9hBgWcODbI/view?usp=drive_link"
         };
 
         // Function to open the PDF file
         function openPDF(event) {
             const subjectId = event.target.id;
             if (pdfFiles[subjectId]) {
-                const pdfPath = `./pdf/support/${pdfFiles[subjectId]}`;
+                const pdfPath = `{pdfFiles[subjectId]}`;
                 window.open(pdfPath, '_blank');
             } else {
                 alert("PDF not found for this subject.");
