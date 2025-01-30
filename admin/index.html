@@ -18,49 +18,49 @@
 
     <script src="../views.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const visitHistory = JSON.parse(localStorage.getItem("visitHistory")) || [];
-            const viewersData = {};
-            const uniqueViewersData = {};
-            
-            visitHistory.forEach(v => {
-                viewersData[v.date] = (viewersData[v.date] || 0) + 1;
-                uniqueViewersData[v.date] = new Set([...(uniqueViewersData[v.date] || []), v.userId]).size;
-            });
+document.addEventListener("DOMContentLoaded", () => {
+    const visitHistory = JSON.parse(localStorage.getItem("visitHistory")) || [];
+    const viewersData = {};
+    const uniqueViewersData = {};
+    
+    visitHistory.forEach(v => {
+        viewersData[v.date] = (viewersData[v.date] || 0) + 1;
+        uniqueViewersData[v.date] = new Set([...(uniqueViewersData[v.date] ?? []), v.userId]).size;
+    });
 
-            const labels = Object.keys(viewersData);
-            const totalViewers = Object.values(viewersData);
-            const uniqueViewers = Object.values(uniqueViewersData);
+    const labels = Object.keys(viewersData);
+    const totalViewers = Object.values(viewersData);
+    const uniqueViewers = Object.values(uniqueViewersData);
 
-            const ctx = document.getElementById('viewersChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Total Viewers',
-                            data: totalViewers,
-                            borderColor: 'darkpurple',
-                            fill: false
-                        },
-                        {
-                            label: 'Unique Viewers',
-                            data: uniqueViewers,
-                            borderColor: 'blue',
-                            fill: false
-                        }
-                    ]
+    const ctx = document.getElementById('viewersChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Total Viewers',
+                    data: totalViewers,
+                    borderColor: 'darkpurple',
+                    fill: false
                 },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: { title: { display: true, text: 'Date' } },
-                        y: { title: { display: true, text: 'Viewers' } }
-                    }
+                {
+                    label: 'Unique Viewers',
+                    data: uniqueViewers,
+                    borderColor: 'blue',
+                    fill: false
                 }
-            });
-        });
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Date' } },
+                y: { title: { display: true, text: 'Viewers' } }
+            }
+        }
+    });
+});
     </script>
 </body>
 </html>
