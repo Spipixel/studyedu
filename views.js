@@ -12,6 +12,11 @@ let visitHistory = localStorage.getItem("visitHistory") ? JSON.parse(localStorag
 // Get daily viewers data
 let dailyViewers = localStorage.getItem("dailyViewers") ? JSON.parse(localStorage.getItem("dailyViewers")) : {};
 
+// Ensure dailyViewers stores unique users correctly
+Object.keys(dailyViewers).forEach(date => {
+    dailyViewers[date].unique = new Set(dailyViewers[date].unique || []);
+});
+
 // Get user data
 let userId = sessionStorage.getItem("userId");
 if (!userId) {
