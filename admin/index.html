@@ -25,7 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
     visitHistory.forEach(v => {
         viewersData[v.date] = (viewersData[v.date] || 0) + 1;
-        uniqueViewersData[v.date] = new Set([...(uniqueViewersData[v.date] ?? []), v.userId]).size;
+        
+        // Fix the uniqueViewersData[v.date] issue
+        if (!Array.isArray(uniqueViewersData[v.date])) {
+            uniqueViewersData[v.date] = [];
+        }
+        uniqueViewersData[v.date] = new Set([...uniqueViewersData[v.date], v.userId]).size;
     });
 
     const labels = Object.keys(viewersData);
@@ -61,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
     </script>
 </body>
 </html>
