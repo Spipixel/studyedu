@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p id="viewer-count">Total Viewers: 0</p>
+    <p id="unique-viewer-count">Unique Viewers: 0</p>
+
+    <canvas id="viewersChart" width="400" height="200"></canvas>
+
+    <h2>Visitor History</h2>
+    <ul id="visit-history"></ul>
+
+    <script src="../views.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const visitHistory = JSON.parse(localStorage.getItem("visitHistory")) || [];
+            const viewersData = {};
+            const uniqueViewersData = {};
+            
+            visitHistory.forEach(v => {
+                viewersData[v.date] = (viewersData[v.date] || 0) + 1;
+                uniqueViewersData[v.date] = new Set([...(uniqueViewersData[v.date] || []), v.userId]).size;
+            });
+
+            const labels = Object.keys(viewersData);
+            const totalViewers = Object.values(viewersData);
+            const uniqueViewers = Object.values(uniqueViewersData);
+
+            const ctx = document.getElementById('viewersChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Total Viewers',
+                            data: totalViewers,
+                            borderColor: 'darkpurple',
+                            fill: false
+                        },
+                        {
+                            label: 'Unique Viewers',
+                            data: uniqueViewers,
+                            borderColor: 'blue',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: { title: { display: true, text: 'Date' } },
+                        y: { title: { display: true, text: 'Viewers' } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
