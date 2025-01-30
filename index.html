@@ -337,5 +337,46 @@
     </script>
 
 </body>
+<script>
+    // views.js
 
+// Get current viewers count from localStorage or initialize it
+let viewers = localStorage.getItem("viewers") ? parseInt(localStorage.getItem("viewers")) : 0;
+
+// Get unique viewers from localStorage or initialize it
+let uniqueViewers = localStorage.getItem("uniqueViewers") ? JSON.parse(localStorage.getItem("uniqueViewers")) : new Set();
+
+// Check if the user is unique (based on session storage or a random identifier)
+let userId = sessionStorage.getItem("userId");
+if (!userId) {
+    userId = Math.random().toString(36).substr(2, 9);
+    sessionStorage.setItem("userId", userId);
+    uniqueViewers.add(userId);
+    localStorage.setItem("uniqueViewers", JSON.stringify(Array.from(uniqueViewers)));
+}
+
+// Increment viewer count
+viewers++;
+localStorage.setItem("viewers", viewers);
+
+// Send viewers count to admin page
+function updateAdminPage() {
+    const adminPage = window.location.pathname.includes("admin/index.html");
+    if (adminPage) {
+        document.addEventListener("DOMContentLoaded", () => {
+            const viewerCountElement = document.getElementById("viewer-count");
+            const uniqueViewerCountElement = document.getElementById("unique-viewer-count");
+            if (viewerCountElement) {
+                viewerCountElement.textContent = `Total Viewers: ${viewers}`;
+            }
+            if (uniqueViewerCountElement) {
+                uniqueViewerCountElement.textContent = `Unique Viewers: ${uniqueViewers.size}`;
+            }
+        });
+    }
+}
+
+updateAdminPage();
+
+</script>
 </html>
