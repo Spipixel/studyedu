@@ -9,12 +9,14 @@ let uniqueViewers = localStorage.getItem("uniqueViewers") ? JSON.parse(localStor
 // Get visit history or initialize it
 let visitHistory = localStorage.getItem("visitHistory") ? JSON.parse(localStorage.getItem("visitHistory")) : [];
 
-// Get daily viewers data or initialize it
+// Get daily viewers data
 let dailyViewers = localStorage.getItem("dailyViewers") ? JSON.parse(localStorage.getItem("dailyViewers")) : {};
 
-// Ensure dailyViewers stores unique users correctly
+// Ensure dailyViewers stores unique users correctly as an array
 Object.keys(dailyViewers).forEach(date => {
-    dailyViewers[date].unique = new Set(dailyViewers[date].unique || []);
+    if (!Array.isArray(dailyViewers[date].unique)) {
+        dailyViewers[date].unique = [];
+    }
 });
 
 // Get user data
@@ -43,19 +45,13 @@ localStorage.setItem("visitHistory", JSON.stringify(visitHistory));
 
 // Update daily viewers count
 if (!dailyViewers[dateKey]) {
-    dailyViewers[dateKey] = { total: 0, unique: new Set() };
-} else {
-    // Convert unique array to Set if it's stored as an array
-    dailyViewers[dateKey].unique = new Set(dailyViewers[dateKey].unique || []);
+    dailyViewers[dateKey] = { total: 0, unique: [] };
 }
-
 dailyViewers[dateKey].total++;
-dailyViewers[dateKey].unique.add(userId);
-
-// Convert Sets to arrays before storing in localStorage
-localStorage.setItem("dailyViewers", JSON.stringify(dailyViewers, (key, value) => 
-    value instanceof Set ? [...value] : value
-));
+if (!dailyViewers[dateKey].unique.includes(userId)) {
+    dailyViewers[dateKey].unique.push(userId);
+}
+localStorage.setItem("dailyViewers", JSON.stringify(dailyViewers));
 
 // Increment viewer count
 viewers++;
